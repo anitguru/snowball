@@ -114,7 +114,10 @@ function simulatePayoff(
     }
   }
 
-  return workingDebts.map((debt, index) => ({
+  // Sort by actual payoff order and assign priority based on that
+  const sortedByPayoff = workingDebts.sort((a, b) => a.monthsPaidOff - b.monthsPaidOff);
+  
+  return sortedByPayoff.map((debt, index) => ({
     ...debt,
     priority: index + 1,
     monthsToPayoff: debt.monthsPaidOff,
