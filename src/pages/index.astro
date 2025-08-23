@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DebtForm from '../components/DebtForm.astro';
+import ResultsDisplay from '../components/ResultsDisplay.astro';
+---
+
+<Layout title="Smart Debt Payoff Calculator">
+  <main class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+        <span class="text-6xl">💰</span>
+        Smart Debt Payoff Calculator
+      </h1>
+      <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+        Compare debt payoff strategies including avalanche, snowball, and cash-flow optimized approaches. 
+        Find the fastest and most cost-effective way to become debt-free.
+      </p>
+    </div>
+
+    <!-- Input Forms -->
+    <DebtForm />
+    
+    <!-- Results Display -->
+    <ResultsDisplay />
+
+    <!-- Footer -->
+    <div class="text-center mt-16 pt-8 border-t border-blue-400">
+      <p class="text-blue-200">
+        💡 <strong>Pro Tip:</strong> The cash-flow strategy considers your entire financial picture, 
+        not just debt balances and interest rates. It helps ensure you maintain financial stability while paying off debt.
+      </p>
+    </div>
+  </main>
+</Layout>

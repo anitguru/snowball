@@ -1,0 +1,401 @@
+---
+---
+
+<div id="results-section" class="hidden">
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl shadow-lg">
+      <h3 class="text-lg font-semibold mb-2">Total Debt</h3>
+      <p id="total-debt" class="text-3xl font-bold">$0</p>
+    </div>
+    
+    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
+      <h3 class="text-lg font-semibold mb-2">Monthly Payments</h3>
+      <p id="total-payments" class="text-3xl font-bold">$0</p>
+    </div>
+    
+    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
+      <h3 class="text-lg font-semibold mb-2">Avg Interest Rate</h3>
+      <p id="avg-interest" class="text-3xl font-bold">0%</p>
+    </div>
+  </div>
+
+  <!-- Cash Flow Summary -->
+  <div id="cashflow-summary" class="bg-white rounded-xl shadow-lg p-6 mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+      <span>📊</span>
+      Cash Flow Analysis
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="text-center">
+        <div class="text-sm text-gray-600">Available for Debt</div>
+        <div id="available-debt" class="text-xl font-bold text-green-600">$0</div>
+      </div>
+      <div class="text-center">
+        <div class="text-sm text-gray-600">Emergency Fund Status</div>
+        <div id="emergency-status" class="text-xl font-bold">-</div>
+      </div>
+      <div class="text-center">
+        <div class="text-sm text-gray-600">Debt-to-Income</div>
+        <div id="debt-to-income" class="text-xl font-bold">-</div>
+      </div>
+      <div class="text-center">
+        <div class="text-sm text-gray-600">Financial Health</div>
+        <div id="financial-health" class="text-xl font-bold">-</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategy Comparison -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div id="avalanche-result" class="strategy-card bg-white rounded-xl shadow-lg p-6 border-2 border-transparent">
+      <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+        <span>🏔️</span>
+        Debt Avalanche
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">Pay minimums on all debts, put extra money toward highest interest rate first</p>
+      
+      <div class="space-y-3 mb-4">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Total Interest:</span>
+          <span id="avalanche-interest" class="font-bold">$0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Payoff Time:</span>
+          <span id="avalanche-time" class="font-bold">0 months</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Monthly Payment:</span>
+          <span id="avalanche-payment" class="font-bold">$0</span>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="p-2 text-left">Priority</th>
+              <th class="p-2 text-left">Debt</th>
+              <th class="p-2 text-left">Rate</th>
+              <th class="p-2 text-left">Payment</th>
+            </tr>
+          </thead>
+          <tbody id="avalanche-debts">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="snowball-result" class="strategy-card bg-white rounded-xl shadow-lg p-6 border-2 border-transparent">
+      <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+        <span>❄️</span>
+        Debt Snowball
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">Pay minimums on all debts, put extra money toward smallest balance first</p>
+      
+      <div class="space-y-3 mb-4">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Total Interest:</span>
+          <span id="snowball-interest" class="font-bold">$0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Payoff Time:</span>
+          <span id="snowball-time" class="font-bold">0 months</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Monthly Payment:</span>
+          <span id="snowball-payment" class="font-bold">$0</span>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="p-2 text-left">Priority</th>
+              <th class="p-2 text-left">Debt</th>
+              <th class="p-2 text-left">Balance</th>
+              <th class="p-2 text-left">Payment</th>
+            </tr>
+          </thead>
+          <tbody id="snowball-debts">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="cashflow-result" class="strategy-card bg-white rounded-xl shadow-lg p-6 border-2 border-transparent">
+      <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+        <span>💰</span>
+        Cash Flow Optimized
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">Optimize payment strategy based on your cash flow and financial goals</p>
+      
+      <div class="space-y-3 mb-4">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Total Interest:</span>
+          <span id="cashflow-interest" class="font-bold">$0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Payoff Time:</span>
+          <span id="cashflow-time" class="font-bold">0 months</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Monthly Payment:</span>
+          <span id="cashflow-payment" class="font-bold">$0</span>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="p-2 text-left">Priority</th>
+              <th class="p-2 text-left">Debt</th>
+              <th class="p-2 text-left">Score</th>
+              <th class="p-2 text-left">Payment</th>
+            </tr>
+          </thead>
+          <tbody id="cashflow-debts">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommendation -->
+  <div id="recommendation" class="bg-gradient-to-r from-green-100 to-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center gap-2">
+      <span>💡</span>
+      Recommendation
+    </h2>
+    <div id="recommendation-text" class="text-green-700">
+      Enter your debts and calculate to see personalized recommendations.
+    </div>
+  </div>
+</div>
+
+<script>
+  import { calculateAllStrategies, formatCurrency, formatMonths } from '../utils/debtCalculations';
+  import type { Debt, CashFlowAnalysis, CalculationParams } from '../types/debt';
+
+  class ResultsManager {
+    constructor() {
+      this.init();
+    }
+
+    private init() {
+      window.addEventListener('debt-calculation', (event: CustomEvent) => {
+        const { debts, extraPayment, cashFlow } = event.detail as CalculationParams;
+        this.displayResults(debts, extraPayment, cashFlow);
+      });
+    }
+
+    private displayResults(debts: Debt[], extraPayment: number, cashFlow?: CashFlowAnalysis) {
+      const results = calculateAllStrategies({ debts, extraPayment, cashFlow });
+      
+      // Show results section
+      const resultsSection = document.getElementById('results-section');
+      if (resultsSection) {
+        resultsSection.style.display = 'block';
+        resultsSection.classList.remove('hidden');
+      }
+
+      this.updateSummaryCards(debts);
+      this.updateCashFlowSummary(cashFlow, debts);
+      this.updateStrategyResults(results);
+      this.updateRecommendation(results, extraPayment);
+      
+      // Scroll to results
+      resultsSection?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    private updateSummaryCards(debts: Debt[]) {
+      const totalDebt = debts.reduce((sum, debt) => sum + debt.balance, 0);
+      const totalPayments = debts.reduce((sum, debt) => sum + debt.minimumPayment, 0);
+      const weightedRate = debts.reduce((sum, debt) => sum + (debt.interestRate * debt.balance), 0) / totalDebt;
+
+      const totalDebtEl = document.getElementById('total-debt');
+      const totalPaymentsEl = document.getElementById('total-payments');
+      const avgInterestEl = document.getElementById('avg-interest');
+
+      if (totalDebtEl) totalDebtEl.textContent = formatCurrency(totalDebt);
+      if (totalPaymentsEl) totalPaymentsEl.textContent = formatCurrency(totalPayments);
+      if (avgInterestEl) avgInterestEl.textContent = `${(weightedRate || 0).toFixed(2)}%`;
+    }
+
+    private updateCashFlowSummary(cashFlow?: CashFlowAnalysis, debts?: Debt[]) {
+      if (!cashFlow || !debts) return;
+
+      const availableDebtEl = document.getElementById('available-debt');
+      const emergencyStatusEl = document.getElementById('emergency-status');
+      const debtToIncomeEl = document.getElementById('debt-to-income');
+      const financialHealthEl = document.getElementById('financial-health');
+
+      if (availableDebtEl) {
+        availableDebtEl.textContent = formatCurrency(cashFlow.availableForDebt);
+      }
+
+      if (emergencyStatusEl) {
+        const targetEmergency = cashFlow.monthlyExpenses * cashFlow.targetEmergencyMonths;
+        const emergencyRatio = cashFlow.emergencyFund / targetEmergency;
+        emergencyStatusEl.textContent = `${(emergencyRatio * 100).toFixed(0)}%`;
+        emergencyStatusEl.className = `text-xl font-bold ${
+          emergencyRatio >= 1 ? 'text-green-600' : 
+          emergencyRatio >= 0.5 ? 'text-yellow-600' : 'text-red-600'
+        }`;
+      }
+
+      if (debtToIncomeEl && debts) {
+        const totalDebtPayments = debts.reduce((sum, debt) => sum + debt.minimumPayment, 0);
+        const debtToIncomeRatio = totalDebtPayments / cashFlow.monthlyIncome;
+        debtToIncomeEl.textContent = `${(debtToIncomeRatio * 100).toFixed(1)}%`;
+        debtToIncomeEl.className = `text-xl font-bold ${
+          debtToIncomeRatio <= 0.2 ? 'text-green-600' :
+          debtToIncomeRatio <= 0.4 ? 'text-yellow-600' : 'text-red-600'
+        }`;
+      }
+
+      if (financialHealthEl) {
+        const score = this.calculateFinancialHealthScore(cashFlow, debts);
+        financialHealthEl.textContent = score.label;
+        financialHealthEl.className = `text-xl font-bold ${score.color}`;
+      }
+    }
+
+    private calculateFinancialHealthScore(cashFlow: CashFlowAnalysis, debts: Debt[]) {
+      let score = 0;
+      
+      // Emergency fund score (0-30)
+      const targetEmergency = cashFlow.monthlyExpenses * cashFlow.targetEmergencyMonths;
+      const emergencyRatio = Math.min(cashFlow.emergencyFund / targetEmergency, 1);
+      score += emergencyRatio * 30;
+      
+      // Debt-to-income score (0-40)
+      const totalDebtPayments = debts.reduce((sum, debt) => sum + debt.minimumPayment, 0);
+      const debtToIncomeRatio = totalDebtPayments / cashFlow.monthlyIncome;
+      const debtScore = Math.max(0, (0.4 - debtToIncomeRatio) / 0.4) * 40;
+      score += debtScore;
+      
+      // Available cash score (0-30)
+      const availableRatio = cashFlow.availableForDebt / cashFlow.monthlyIncome;
+      const availableScore = Math.min(availableRatio / 0.2, 1) * 30;
+      score += availableScore;
+      
+      if (score >= 80) return { label: 'Excellent', color: 'text-green-600' };
+      if (score >= 60) return { label: 'Good', color: 'text-green-600' };
+      if (score >= 40) return { label: 'Fair', color: 'text-yellow-600' };
+      if (score >= 20) return { label: 'Poor', color: 'text-red-600' };
+      return { label: 'Critical', color: 'text-red-600' };
+    }
+
+    private updateStrategyResults(results: any) {
+      const strategies = ['avalanche', 'snowball', 'cashflow'];
+      
+      strategies.forEach((strategy, index) => {
+        const strategyResult = results.strategies[index];
+        
+        // Update summary stats
+        const interestEl = document.getElementById(`${strategy}-interest`);
+        const timeEl = document.getElementById(`${strategy}-time`);
+        const paymentEl = document.getElementById(`${strategy}-payment`);
+        
+        if (interestEl) interestEl.textContent = formatCurrency(strategyResult.totalInterest);
+        if (timeEl) timeEl.textContent = formatMonths(strategyResult.totalMonths);
+        if (paymentEl) paymentEl.textContent = formatCurrency(strategyResult.monthlyPayment);
+        
+        // Update debt table
+        const tbody = document.getElementById(`${strategy}-debts`);
+        if (tbody) {
+          tbody.innerHTML = '';
+          strategyResult.debts.forEach((debt: any) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td class="p-2">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full text-white text-xs font-bold ${this.getPriorityColor(debt.priority)}">
+                  ${debt.priority}
+                </span>
+              </td>
+              <td class="p-2 font-medium">${debt.name}</td>
+              <td class="p-2">
+                ${strategy === 'avalanche' ? debt.interestRate.toFixed(2) + '%' : 
+                  strategy === 'snowball' ? formatCurrency(debt.balance) :
+                  ((debt.interestRate / 100) * 0.4 + (debt.minimumPayment / debt.balance) * 0.6).toFixed(3)}
+              </td>
+              <td class="p-2 font-bold">${formatCurrency(debt.currentPayment)}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        }
+        
+        // Highlight best strategy
+        const card = document.getElementById(`${strategy}-result`);
+        if (card) {
+          const isBest = strategyResult === results.bestStrategy;
+          card.classList.toggle('border-green-500', isBest);
+          card.classList.toggle('bg-green-50', isBest);
+        }
+      });
+    }
+
+    private getPriorityColor(priority: number): string {
+      if (priority === 1) return 'bg-red-500';
+      if (priority === 2) return 'bg-orange-500';
+      if (priority === 3) return 'bg-yellow-500';
+      if (priority === 4) return 'bg-green-500';
+      return 'bg-gray-500';
+    }
+
+    private updateRecommendation(results: any, extraPayment: number) {
+      const recommendationEl = document.getElementById('recommendation-text');
+      if (!recommendationEl) return;
+
+      let recommendation = '';
+      
+      if (extraPayment === 0) {
+        recommendation = `
+          <strong>💰 Add extra payments to accelerate your debt freedom!</strong><br><br>
+          With your current minimum payments, you're looking at significant interest costs. 
+          Even an extra $100/month could save you thousands in interest and years of payments.
+        `;
+      } else {
+        const bestStrategy = results.bestStrategy.strategy.name;
+        const savings = formatCurrency(results.interestSavings);
+        const timeSavings = formatMonths(results.timeSavings);
+        
+        recommendation = `
+          <strong>🎯 The ${bestStrategy} method is recommended!</strong><br><br>
+          • You'll save <strong>${savings}</strong> in interest compared to other methods<br>
+          ${results.timeSavings > 0 ? `• You'll be debt-free <strong>${timeSavings}</strong> sooner<br>` : ''}
+          • Total payoff time: <strong>${formatMonths(results.bestStrategy.totalMonths)}</strong><br>
+          • Monthly payment: <strong>${formatCurrency(results.bestStrategy.monthlyPayment)}</strong><br><br>
+          
+          ${bestStrategy === 'Debt Avalanche' ? 
+            '📊 <strong>Strategy:</strong> Focus on paying off your highest interest rate debts first to minimize total interest paid.' :
+            bestStrategy === 'Debt Snowball' ?
+            '🎯 <strong>Strategy:</strong> Focus on paying off your smallest balances first for psychological wins and momentum.' :
+            '💰 <strong>Strategy:</strong> This optimized approach considers your cash flow to balance debt payoff with financial stability.'
+          }
+        `;
+      }
+      
+      recommendationEl.innerHTML = recommendation;
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new ResultsManager();
+  });
+</script>
+
+<style>
+  .strategy-card {
+    transition: all 0.3s ease;
+  }
+  
+  .strategy-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+</style>

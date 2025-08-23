@@ -1,0 +1,390 @@
+---
+---
+
+<div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    <span>💳</span>
+    Debt Information
+  </h2>
+  
+  <div id="debt-list" class="space-y-4 mb-6">
+    <!-- Debt items will be added here dynamically -->
+  </div>
+  
+  <div class="flex gap-3">
+    <button 
+      id="add-debt-btn"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center gap-2"
+    >
+      <span>➕</span>
+      Add Debt
+    </button>
+    
+    <button 
+      id="load-sample-btn"
+      class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center gap-2"
+    >
+      <span>📝</span>
+      Load Sample Data
+    </button>
+  </div>
+</div>
+
+<div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    <span>💰</span>
+    Cash Flow Analysis
+  </h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label for="monthly-income" class="block text-sm font-medium text-gray-700 mb-2">
+        Monthly Income (after taxes)
+      </label>
+      <input 
+        type="number" 
+        id="monthly-income" 
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="5000"
+        min="0"
+        step="100"
+      />
+    </div>
+    
+    <div>
+      <label for="monthly-expenses" class="block text-sm font-medium text-gray-700 mb-2">
+        Monthly Fixed Expenses
+      </label>
+      <input 
+        type="number" 
+        id="monthly-expenses" 
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="3000"
+        min="0"
+        step="100"
+      />
+    </div>
+    
+    <div>
+      <label for="emergency-fund" class="block text-sm font-medium text-gray-700 mb-2">
+        Current Emergency Fund
+      </label>
+      <input 
+        type="number" 
+        id="emergency-fund" 
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="1000"
+        min="0"
+        step="100"
+      />
+    </div>
+    
+    <div>
+      <label for="emergency-months" class="block text-sm font-medium text-gray-700 mb-2">
+        Target Emergency Fund (months)
+      </label>
+      <input 
+        type="number" 
+        id="emergency-months" 
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="3"
+        min="1"
+        max="12"
+        step="1"
+        value="3"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    <span>🎯</span>
+    Extra Payment Strategy
+  </h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+    <div>
+      <label for="extra-payment" class="block text-sm font-medium text-gray-700 mb-2">
+        Extra Monthly Payment Available
+      </label>
+      <input 
+        type="number" 
+        id="extra-payment" 
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="500"
+        min="0"
+        step="50"
+        value="0"
+      />
+    </div>
+    
+    <div class="flex gap-3">
+      <button 
+        id="calculate-btn"
+        class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2"
+      >
+        <span>🔄</span>
+        Calculate Payoff Plans
+      </button>
+      
+      <button 
+        id="reset-btn"
+        class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+</div>
+
+<template id="debt-item-template">
+  <div class="debt-item bg-gray-50 p-4 rounded-lg border border-gray-200">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Debt Name</label>
+        <input 
+          type="text" 
+          class="debt-name w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="Credit Card 1"
+          required
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Current Balance</label>
+        <input 
+          type="number" 
+          class="debt-balance w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="5000"
+          min="0"
+          step="0.01"
+          required
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (%)</label>
+        <input 
+          type="number" 
+          class="debt-rate w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="18.99"
+          min="0"
+          max="50"
+          step="0.01"
+          required
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Payment</label>
+        <input 
+          type="number" 
+          class="debt-payment w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="150"
+          min="1"
+          step="0.01"
+          required
+        />
+      </div>
+      
+      <div class="flex justify-end">
+        <button 
+          type="button" 
+          class="remove-debt-btn bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded transition-colors duration-200"
+          title="Remove this debt"
+        >
+          ❌
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import type { Debt, CashFlowAnalysis } from '../types/debt';
+  
+  class DebtFormManager {
+    private debtCounter = 0;
+    
+    constructor() {
+      this.init();
+    }
+    
+    private init() {
+      const addBtn = document.getElementById('add-debt-btn');
+      const loadSampleBtn = document.getElementById('load-sample-btn');
+      const calculateBtn = document.getElementById('calculate-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      
+      addBtn?.addEventListener('click', () => this.addDebtItem());
+      loadSampleBtn?.addEventListener('click', () => this.loadSampleData());
+      calculateBtn?.addEventListener('click', () => this.calculatePayoff());
+      resetBtn?.addEventListener('click', () => this.resetForm());
+      
+      // Add initial debt item
+      this.addDebtItem();
+    }
+    
+    private addDebtItem() {
+      const template = document.getElementById('debt-item-template') as HTMLTemplateElement;
+      const debtList = document.getElementById('debt-list');
+      
+      if (!template || !debtList) return;
+      
+      const clone = template.content.cloneNode(true) as DocumentFragment;
+      const debtItem = clone.querySelector('.debt-item') as HTMLElement;
+      
+      debtItem.setAttribute('data-debt-id', (++this.debtCounter).toString());
+      
+      const removeBtn = clone.querySelector('.remove-debt-btn');
+      removeBtn?.addEventListener('click', () => this.removeDebtItem(debtItem));
+      
+      debtList.appendChild(clone);
+    }
+    
+    private removeDebtItem(debtItem: HTMLElement) {
+      const debtList = document.getElementById('debt-list');
+      if (debtList && debtList.children.length > 1) {
+        debtItem.remove();
+      } else {
+        alert('You must have at least one debt to calculate payoff strategies.');
+      }
+    }
+    
+    private collectDebts(): Debt[] {
+      const debtItems = document.querySelectorAll('.debt-item');
+      const debts: Debt[] = [];
+      
+      debtItems.forEach((item, index) => {
+        const name = (item.querySelector('.debt-name') as HTMLInputElement)?.value;
+        const balance = parseFloat((item.querySelector('.debt-balance') as HTMLInputElement)?.value || '0');
+        const interestRate = parseFloat((item.querySelector('.debt-rate') as HTMLInputElement)?.value || '0');
+        const minimumPayment = parseFloat((item.querySelector('.debt-payment') as HTMLInputElement)?.value || '0');
+        
+        if (name && balance > 0 && minimumPayment > 0) {
+          debts.push({
+            id: `debt-${index + 1}`,
+            name,
+            balance,
+            interestRate,
+            minimumPayment,
+            isActive: true
+          });
+        }
+      });
+      
+      return debts;
+    }
+    
+    private collectCashFlow(): CashFlowAnalysis {
+      const monthlyIncome = parseFloat((document.getElementById('monthly-income') as HTMLInputElement)?.value || '0');
+      const monthlyExpenses = parseFloat((document.getElementById('monthly-expenses') as HTMLInputElement)?.value || '0');
+      const emergencyFund = parseFloat((document.getElementById('emergency-fund') as HTMLInputElement)?.value || '0');
+      const targetEmergencyMonths = parseInt((document.getElementById('emergency-months') as HTMLInputElement)?.value || '3');
+      
+      return {
+        monthlyIncome,
+        monthlyExpenses,
+        availableForDebt: Math.max(0, monthlyIncome - monthlyExpenses),
+        emergencyFund,
+        targetEmergencyMonths
+      };
+    }
+    
+    private calculatePayoff() {
+      const debts = this.collectDebts();
+      const cashFlow = this.collectCashFlow();
+      const extraPayment = parseFloat((document.getElementById('extra-payment') as HTMLInputElement)?.value || '0');
+      
+      if (debts.length === 0) {
+        alert('Please add at least one debt to calculate payoff strategies.');
+        return;
+      }
+      
+      // Dispatch custom event with calculation data
+      const event = new CustomEvent('debt-calculation', {
+        detail: {
+          debts,
+          extraPayment,
+          cashFlow
+        }
+      });
+      
+      window.dispatchEvent(event);
+    }
+    
+    private loadSampleData() {
+      // Clear existing debts first
+      this.resetForm();
+      
+      const sampleDebts = [
+        { name: 'Amazon Store Card', balance: 852.00, rate: 29.99, payment: 45.00 },
+        { name: 'AmEx Delta SkyMiles', balance: 7548.17, rate: 28.99, payment: 186.00 },
+        { name: 'Discover Card', balance: 5962.44, rate: 27.24, payment: 156.00 },
+        { name: 'AmEx Platinum', balance: 13415.61, rate: 27.24, payment: 443.26 },
+        { name: 'Target RedCard', balance: 9338.54, rate: 27.15, payment: 265.00 },
+        { name: 'Chase Freedom', balance: 3479.77, rate: 19.24, payment: 80.00 },
+        { name: 'Student Loans', balance: 14778.58, rate: 7.125, payment: 167.99 }
+      ];
+      
+      const debtList = document.getElementById('debt-list');
+      if (debtList) {
+        debtList.innerHTML = ''; // Clear all items
+        
+        sampleDebts.forEach(debt => {
+          this.addDebtItem();
+          const lastItem = debtList.lastElementChild as HTMLElement;
+          if (lastItem) {
+            (lastItem.querySelector('.debt-name') as HTMLInputElement).value = debt.name;
+            (lastItem.querySelector('.debt-balance') as HTMLInputElement).value = debt.balance.toString();
+            (lastItem.querySelector('.debt-rate') as HTMLInputElement).value = debt.rate.toString();
+            (lastItem.querySelector('.debt-payment') as HTMLInputElement).value = debt.payment.toString();
+          }
+        });
+      }
+      
+      // Load sample cash flow data
+      (document.getElementById('monthly-income') as HTMLInputElement).value = '6500';
+      (document.getElementById('monthly-expenses') as HTMLInputElement).value = '4200';
+      (document.getElementById('emergency-fund') as HTMLInputElement).value = '3500';
+      (document.getElementById('emergency-months') as HTMLInputElement).value = '3';
+      (document.getElementById('extra-payment') as HTMLInputElement).value = '500';
+    }
+    
+    private resetForm() {
+      // Clear all debt items except the first one
+      const debtList = document.getElementById('debt-list');
+      if (debtList) {
+        while (debtList.children.length > 1) {
+          debtList.removeChild(debtList.lastChild!);
+        }
+        
+        // Clear the remaining debt item
+        const firstItem = debtList.querySelector('.debt-item');
+        if (firstItem) {
+          const inputs = firstItem.querySelectorAll('input');
+          inputs.forEach(input => input.value = '');
+        }
+      }
+      
+      // Clear other form fields
+      (document.getElementById('monthly-income') as HTMLInputElement).value = '';
+      (document.getElementById('monthly-expenses') as HTMLInputElement).value = '';
+      (document.getElementById('emergency-fund') as HTMLInputElement).value = '';
+      (document.getElementById('emergency-months') as HTMLInputElement).value = '3';
+      (document.getElementById('extra-payment') as HTMLInputElement).value = '0';
+      
+      // Clear results
+      const resultsSection = document.getElementById('results-section');
+      if (resultsSection) {
+        resultsSection.style.display = 'none';
+      }
+    }
+  }
+  
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new DebtFormManager();
+  });
+</script>
